@@ -1,54 +1,137 @@
-# React + TypeScript + Vite
+# Mapa de Queimadas 🌎🔥
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um site interativo que exibe dados de queimadas em um mapa, permitindo filtrar por estado e período.
 
-Currently, two official plugins are available:
+## 🧭 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* Visualização interativa de queimadas em um mapa (Leaflet).
+* Filtro por estado.
+* Filtro por intervalo de datas.
+* Backend em Node.js com Express e PostgreSQL.
+* Frontend em React com TypeScript.
 
-## Expanding the ESLint configuration
+## 🛠 Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Frontend**:
+- React + TypeScript
+- Vite
+- React-Leaflet (Mapas)
+- Tailwind CSS (estilos)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+**Backend**:
+- Node.js + Express
+- PostgreSQL
+- TypeScript
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📦 Pré-requisitos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Antes de começar, certifique-se de ter o seguinte instalado em sua máquina:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+* **Node.js** (versão LTS recomendada): Você pode baixá-lo em [https://nodejs.org/](https://nodejs.org/)
+* **npm** (geralmente instalado com o Node.js)
+* **Git** (para clonar o repositório): Você pode baixá-lo em [https://git-scm.com/](https://git-scm.com/)
+* **PostgreSQL**: Você precisará de um servidor PostgreSQL rodando localmente ou de acesso a um servidor remoto. Você pode baixá-lo em [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
+
+## 🚀 Configuração
+
+Siga estas etapas para configurar e rodar o site:
+
+1.  **Clonar o repositório:**
+    ```bash
+    git clone <URL_DO_SEU_REPOSITORIO>
+    cd site-queimadas
+    ```
+
+2.  **Configurar o Frontend:**
+   
+    a.  Navegue até a pasta raiz do projeto (caso não esteja nela):
+    
+        ```bash
+        cd site-queimadas
+        ```
+    b.  Instale as dependências do frontend:
+    
+        ```bash
+        npm install
+        npm install leaflet react-leaflet
+        npm install --save-dev @types/leaflet
+        ```
+
+3.  **Configurar o Backend:**
+   
+    a.  Navegue até a pasta `backend`:
+    
+        ```bash
+        cd backend
+        ```
+    b.  Inicialize um projeto Node.js (se ainda não houver um `package.json`):
+    
+        ```bash
+        npm init -y
+        ```
+    c.  Instale as dependências do backend:
+    
+        ```bash
+        npm install express cors pg dotenv
+        npm install -D typescript ts-node @types/express @types/node
+        ```
+    d.  Inicialize a configuração do TypeScript (se ainda não houver um `tsconfig.json`):
+    
+        ```bash
+        npx tsc --init
+        ```
+    e.  Crie um banco de dados chamado `queimadas` no seu servidor PostgreSQL.
+    
+    f.  Configure as variáveis de ambiente: Crie um arquivo `.env` na pasta `backend` e preencha com as informações do seu banco de dados (se você não tiver um arquivo `.env` já criado):
+        ```
+    
+        DB_HOST=localhost
+        DB_PORT=5432
+        DB_USER=postgres
+        DB_PASSWORD=123
+        DB_NAME=queimadas
+        PORT=3000
+        ```
+    
+        **Observação:** Adapte `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` e `DB_NAME` conforme a sua configuração do PostgreSQL. Se você alterou a porta padrão (5432) ou usa um usuário/senha diferente, atualize o arquivo `.env` adequadamente.
+
+4.  **Executar o Backend:**
+  
+    a.  Certifique-se de estar na pasta `backend`:
+    
+        ```bash
+        cd backend
+        ```
+    b.  Execute o servidor backend:
+    
+        ```bash
+        npx ts-node index.ts
+        ```
+    
+        O servidor backend estará rodando em `http://localhost:3000`.
+
+5.  **Executar o Frontend:**
+  
+    a.  Navegue de volta para a pasta raiz do projeto:
+    
+        ```bash
+        cd ..
+        ```
+    
+    b.  Execute o servidor de desenvolvimento do Vite:
+    
+        ```bash
+        npm run dev
+        ```
+    
+        Isso iniciará o servidor de desenvolvimento do Vite. O frontend geralmente estará disponível em `http://localhost:5173/` (a porta pode variar).
+
+## 🔥 Acesso ao Site
+
+Após executar o backend e o frontend, você poderá acessar o site no endereço fornecido pelo comando `npm run dev` (geralmente `http://localhost:5173/`). Você verá um mapa e opções para filtrar os dados de queimadas por estado e período.
+
+## Importante
+
+* Certifique-se de que o seu servidor PostgreSQL esteja rodando e acessível.
+* Verifique se as configurações de banco de dados no arquivo `.env` do backend estão corretas.
+* O backend precisa estar rodando para que o frontend possa buscar os dados das queimadas e os estados disponíveis.
